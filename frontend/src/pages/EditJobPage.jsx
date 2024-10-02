@@ -14,6 +14,10 @@ const EditJobPage = () => {
   const [companyName, setCompanyName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [salary, setSalary] = useState(0);
+  const [postedDate, setPostedDate] = useState(new Date());
+  const [status, setStatus] = useState("open");
 
   const user = JSON.parse(localStorage.getItem("user"));
   const token = user ? user.token : null;
@@ -57,6 +61,11 @@ const EditJobPage = () => {
         setCompanyName(data.company.name);
         setContactEmail(data.company.contactEmail);
         setContactPhone(data.company.contactPhone);
+        setLocation(data.location);
+        setSalary(data.salary);
+        console.log(data.postedDate);
+        setPostedDate(new Date(data.postedDate).toISOString().split('T')[0]);
+        setStatus(data.status);
       } catch (error) {
         console.error("Failed to fetch job:", error);
         setError(error.message);
@@ -82,6 +91,10 @@ const EditJobPage = () => {
         contactEmail,
         contactPhone,
       },
+      location,
+      salary,
+      postedDate,
+      status: "open",
     };
 
     const success = await updateJob(updatedJob);
@@ -144,6 +157,31 @@ const EditJobPage = () => {
             value={contactPhone}
             onChange={(e) => setContactPhone(e.target.value)}
           />
+        <label>Location:</label>
+        <input
+          type="text"
+          required
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+        <label>Salary:</label>
+        <input
+          type="number"
+          required
+          value={salary}
+          onChange={(e) => setSalary(e.target.value)}
+        />
+        <label>Posted Date:</label>
+        <input
+          type="date"
+          value={postedDate}
+          onChange={(e) => setPostedDate(e.target.value)}
+        />
+        <label>Status:</label>
+        <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <option value="open">Open</option>
+          <option value="closed">Closed</option>
+        </select>
           <button>Update Job</button>
         </form>
       )}
