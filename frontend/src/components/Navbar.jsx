@@ -15,7 +15,7 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
         {isAuthenticated && (
           <div>
             <Link to="/jobs/add-job">Add Job</Link>
-            <span>{JSON.parse(localStorage.getItem("user")).email}</span>
+            <span>{JSON.parse(localStorage.getItem("user")).username}</span>
             <button onClick={handleClick}>Log out</button>
           </div>
         )}

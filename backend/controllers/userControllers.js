@@ -15,28 +15,32 @@ const generateToken = (_id) => {
 const signupUser = async (req, res) => {
   const {
     name,
-    email,
+    username,
     password,
     phone_number,
     gender,
     date_of_birth,
     membership_status,
+    address,
+    profile_picture,
   } = req.body;
   try {
     if (
       !name ||
-      !email ||
+      !username ||
       !password ||
       !phone_number ||
       !gender ||
       !date_of_birth ||
-      !membership_status
+      !membership_status ||
+      !address ||
+      !profile_picture
     ) {
       res.status(400);
       throw new Error("Please add all fields");
     }
     // Check if user exists
-    const userExists = await User.findOne({ email });
+    const userExists = await User.findOne({ username });
 
     if (userExists) {
       res.status(400);
@@ -50,18 +54,20 @@ const signupUser = async (req, res) => {
     // Create user
     const user = await User.create({
       name,
-      email,
+      username,
       password: hashedPassword,
       phone_number,
       gender,
       date_of_birth,
       membership_status,
+      address,
+      profile_picture,
     });
 
     if (user) {
       // console.log(user._id);
      const token = generateToken(user._id);
-      res.status(201).json({ email, token });
+      res.status(201).json({ username, token });
     } else {
       res.status(400);
       throw new Error("Invalid user data");
@@ -75,14 +81,14 @@ const signupUser = async (req, res) => {
 // @route   POST /api/users/login
 // @access  Public
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
   try {
     // Check for user email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const token = generateToken(user._id);
-      res.status(200).json({ email, token });
+      res.status(200).json({ username, token });
     } else {
       res.status(400);
       throw new Error("Invalid credentials");
