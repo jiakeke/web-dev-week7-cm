@@ -14,6 +14,10 @@ const jobSchema = new mongoose.Schema({
     required: true,
     ref: 'User',
   },
+  location: { type: String, required: true }, // e.g., City, State, or Remote
+  salary: { type: Number, required: true }, // e.g., Annual or hourly salary
+  postedDate: { type: Date, default: Date.now }, // Date the job was posted
+  status: { type: String, enum: ['open', 'closed'], default: 'open' }, // Job status
 });
 
  
