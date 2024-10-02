@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
+import { useContext } from "react";
 
-const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
-  const handleClick = (e) => {
-    setIsAuthenticated(false);
-    localStorage.removeItem("user");
-  };
+const Navbar = () => {
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   return (
     <nav className="navbar">
@@ -12,14 +11,13 @@ const Navbar = ({ isAuthenticated, setIsAuthenticated }) => {
         <h1>React Jobs</h1>
       </Link>
       <div className="links">
-        {isAuthenticated && (
+        {isLoggedIn ? (
           <div>
             <Link to="/jobs/add-job">Add Job</Link>
             <span>{JSON.parse(localStorage.getItem("user")).email}</span>
-            <button onClick={handleClick}>Log out</button>
+            <button onClick={logout}>Log out</button>
           </div>
-        )}
-        {!isAuthenticated && (
+        ) : (
           <div>
             <Link to="/login">Login</Link>
             <Link to="/signup">Signup</Link>
