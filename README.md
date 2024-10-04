@@ -18,7 +18,29 @@
 ### Frontend
 
 ```js
+...
 // src/Context/AuthContext.jsx
+export function AuthProvider(props) {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const storedJwt = localStorage.getItem("user");
+    if (storedJwt) {
+      setIsLoggedIn(true);
+      setToken(storedJwt.token);
+    }
+    setIsLoading(false);
+  }, []);
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    setToken(null);
+    localStorage.removeItem("user");
+  };
+...
 ```
 
 #### Self-Assessment for AuthContext Code
@@ -30,36 +52,40 @@ token management, and provides a context for other components to access and
 modify authentication-related data.
 
 ##### 2. Strengths
-    - **State Management**: The code effectively uses React's `useState` to
-      manage multiple pieces of state (`isLoggedIn`, `token`, `isLoading`,
-      `error`).
-    - **Persistent Login**: The `useEffect` hook checks for a stored JWT in
-      `localStorage` to maintain the user's login state across page reloads.
-    - **Context Provider**: The `AuthContext.Provider` is correctly set up to
-      pass down the authentication state and functions to the rest of the
-      application.
-    - **Logout Functionality**: The `logout` function properly resets the
-      authentication state and removes the token from `localStorage`.
+    - **State Management:**
+     The code effectively uses React's `useState` to manage multiple pieces of
+     state (`isLoggedIn`, `token`, `isLoading`, `error`).
+    - **Persistent Login:**
+      The `useEffect` hook checks for a stored JWT in `localStorage` to
+      maintain the user's login state across page reloads.
+    - **Context Provider:**
+      The `AuthContext.Provider` is correctly set up to pass down the
+      authentication state and functions to the rest of the application.
+    - **Logout Functionality:**
+      The `logout` function properly resets the authentication state and
+      removes the token from `localStorage`.
 
 ##### 3. Areas for Improvement
-    - **Error Handling**: While an `error` state is defined, it is not
-      currently utilized. Implementing error handling in the authentication
-      logic would improve robustness.
-    - **Token Parsing**: The code assumes `storedJwt.token` exists without
-      parsing the stored JWT. Adding JSON parsing would ensure correct
-      retrieval of the token.
-      ```javascript
+    - **Error Handling:**
+      While an `error` state is defined, it is not currently utilized.
+      Implementing error handling in the authentication logic would improve
+      robustness.
+    - **Token Parsing:**
+      The code assumes `storedJwt.token` exists without parsing the stored JWT.
+      Adding JSON parsing would ensure correct retrieval of the token.
+      ```js
       const storedJwt = JSON.parse(localStorage.getItem("user"));
       if (storedJwt) {
         setIsLoggedIn(true);
         setToken(storedJwt.token);
       }
       ```
-    - Security Considerations: Storing JWTs in localStorage can be a security
-      risk. Using HttpOnly cookies for token storage could enhance security.
-    - Loading State Management: Ensure that the application properly handles
-      the isLoading state to avoid rendering issues during the authentication
-      check.
+    - **Security Considerations:**
+      Storing JWTs in localStorage can be a security risk. Using HttpOnly
+      cookies for token storage could enhance security.
+    - **Loading State Management:**
+      Ensure that the application properly handles the isLoading state to avoid
+      rendering issues during the authentication check.
 
 ##### 4. Functionality
 The code successfully manages the authentication state and provides necessary
