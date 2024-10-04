@@ -17,9 +17,9 @@
 
 ### Frontend
 
+#### Self-Assessment for `src/Context/AuthContext.jsx`
 ```js
 ...
-// src/Context/AuthContext.jsx
 export function AuthProvider(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(null);
@@ -42,8 +42,6 @@ export function AuthProvider(props) {
   };
 ...
 ```
-
-#### Self-Assessment for `src/Context/AuthContext.jsx`
 
 ##### 1. Introduction
 This code defines an `AuthContext` and an `AuthProvider` component to manage
@@ -101,10 +99,77 @@ robust and secure. Future steps include implementing error handling and
 considering more secure token storage methods.
 
 
+#### Self-Assessment for `src/components/RouteGuard.jsx`
 ```js
-// File name or function
-// Your code part B
+import { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
+
+export default function RouteGuard({ children }) {
+  const { isLoggedIn, isLoading } = useContext(AuthContext);
+
+  if (isLoading) {
+    return <></>;
+  }
+
+  if (!isLoggedIn) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
 ```
+
+##### 1. Introduction
+This code defines a `RouteGuard` component that uses React's `useContext` hook to access authentication state from `AuthContext`. It conditionally renders its children based on the user's login status, redirecting unauthenticated users to the login page.
+
+##### 2. Strengths
+- **Context Usage:**
+  The component effectively uses `useContext` to access `isLoggedIn` and
+  `isLoading` states from `AuthContext`, ensuring that authentication logic is
+  centralized and easily manageable.
+
+- **Conditional Rendering:**
+  The component handles different states (`isLoading`, `isLoggedIn`)
+  appropriately, ensuring that the UI reflects the user's authentication
+  status.
+
+- **Redirection:**
+  The use of `Navigate` from `react-router-dom` to redirect unauthenticated
+  users to the login page is a straightforward and effective way to manage
+  protected routes.
+
+##### 3. Areas for Improvement
+- **Loading State Handling:**
+  Returning an empty fragment (`<></>`) when `isLoading` might not provide the
+  best user experience. Consider displaying a loading spinner or some
+  placeholder content to indicate that the authentication check is in progress.
+  ```javascript
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  ```
+- **Error Handling:**
+  The component does not currently handle potential errors that might occur
+  during the authentication check. Adding error handling logic could improve
+  robustness.
+
+- **Code Readability:**
+  Adding comments to explain the purpose of each conditional check can enhance
+  code readability and maintainability.
+  
+
+##### 4. Functionality
+  The RouteGuard component successfully protects routes by checking the user’s
+  authentication status and redirecting unauthenticated users to the login
+  page.  It ensures that only authenticated users can access certain parts of
+  the application, enhancing security and user experience.
+
+##### 5. Conclusion
+  Overall, the RouteGuard component is well-implemented and effectively manages
+  route protection based on authentication status. By addressing the identified
+  areas for improvement, such as enhancing the loading state handling and
+  adding error handling, the component can provide an even better user
+  experience and robustness.
 
 ### Backend
 
