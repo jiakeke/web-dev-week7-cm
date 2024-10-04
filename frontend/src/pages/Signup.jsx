@@ -1,10 +1,12 @@
 import useField from "../hooks/useField";
 import useSignup from "../hooks/useSignup";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
+import { useContext } from "react";
 
 const Signup = ({ setIsAuthenticated }) => {
   const navigate = useNavigate();
-  const name = useField("text");  
+  const name = useField("text");
   const email = useField("email");
   const password = useField("password");
   const phoneNumber = useField("text");
@@ -13,6 +15,8 @@ const Signup = ({ setIsAuthenticated }) => {
   const membershipStatus = useField("text");
 
   const { signup, error } = useSignup("/api/users/signup");
+
+  const { isLoggedIn } = useContext(AuthContext);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -32,28 +36,30 @@ const Signup = ({ setIsAuthenticated }) => {
     }
   };
 
-  return (
-    <div className="create">
-      <h2>Sign Up</h2>
-      <form onSubmit={handleFormSubmit}>
-        <label>Name:</label>
-        <input {...name} />
-        <label>Email address:</label>
-        <input {...email} />
-        <label>Password:</label>
-        <input {...password} />
-        <label>Phone Number:</label>
-        <input {...phoneNumber} />
-        <label>Gender:</label>
-        <input {...gender} />
-        <label>Date of Birth:</label>
-        <input {...dateOfBirth} />
-        <label>Membership Status:</label>
-        <input {...membershipStatus} />
-        <button>Sign up</button>
-      </form>
-    </div>
-  );
+  if (!isLoggedIn) {
+    return (
+      <div className="create">
+        <h2>Sign Up</h2>
+        <form onSubmit={handleFormSubmit}>
+          <label>Name:</label>
+          <input {...name} />
+          <label>Email address:</label>
+          <input {...email} />
+          <label>Password:</label>
+          <input {...password} />
+          <label>Phone Number:</label>
+          <input {...phoneNumber} />
+          <label>Gender:</label>
+          <input {...gender} />
+          <label>Date of Birth:</label>
+          <input {...dateOfBirth} />
+          <label>Membership Status:</label>
+          <input {...membershipStatus} />
+          <button>Sign up</button>
+        </form>
+      </div>
+    );
+  }
 };
 
 export default Signup;

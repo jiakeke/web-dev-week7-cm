@@ -14,11 +14,6 @@ import Signup from "./pages/Signup";
 import RouteGuard from "./components/RouteGuard";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    return user && user.token ? true : false;
-  });
-
   return (
     <div className="App">
       <AuthProvider>
@@ -27,15 +22,7 @@ const App = () => {
           <div className="content">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route
-                path="/jobs/:id"
-                element={
-                  <JobPage
-                    isAuthenticated={isAuthenticated}
-                    setIsAuthenticated={setIsAuthenticated}
-                  />
-                }
-              />
+              <Route path="/jobs/:id" element={<JobPage />} />
               <Route
                 path="/jobs/add-job"
                 element={
@@ -52,26 +39,8 @@ const App = () => {
                   </RouteGuard>
                 }
               />
-              <Route
-                path="/signup"
-                element={
-                  isAuthenticated ? (
-                    <Navigate to="/" />
-                  ) : (
-                    <Signup setIsAuthenticated={setIsAuthenticated} />
-                  )
-                }
-              />
-              <Route
-                path="/login"
-                element={
-                  isAuthenticated ? (
-                    <Navigate to="/" />
-                  ) : (
-                    <Login setIsAuthenticated={setIsAuthenticated} />
-                  )
-                }
-              />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/login" element={<Login />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>

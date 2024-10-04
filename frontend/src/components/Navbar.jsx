@@ -5,8 +5,6 @@ import { useContext } from "react";
 const Navbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
 
-  console.log(isLoggedIn);
-
   if (isLoggedIn) {
   }
   return (

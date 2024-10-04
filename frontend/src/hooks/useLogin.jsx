@@ -4,7 +4,8 @@ import { AuthContext } from "../Context/AuthContext";
 export default function useLogin(url) {
   // const [error, setError] = useState(null);
   // const [isLoading, setIsLoading] = useState(null);
-  const { error, setError, isLoading, setIsLoading } = useContext(AuthContext);
+  const { setIsLoggedIn, error, setError, setIsLoading } =
+    useContext(AuthContext);
 
   const login = async (object) => {
     setIsLoading(true);
@@ -25,7 +26,8 @@ export default function useLogin(url) {
     // localStorage.setItem("token", user.token);
     localStorage.setItem("user", JSON.stringify(user));
     setIsLoading(false);
+    setIsLoggedIn(true);
   };
 
-  return { login, isLoading, error };
+  return { login };
 }
