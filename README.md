@@ -11,8 +11,11 @@
   - [URL for API V1]
   - [URL for API V2]
 
----
+- **Bonus for useContext:**
+    We successfully used useContext instead of props in the front-end program.
+    The function is executed correctly
 
+---
 ## Self-Assessment of Code
 
 ### Frontend
