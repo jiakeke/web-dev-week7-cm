@@ -8,7 +8,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    email: {
+    username: {
       type: String,
       required: true,
       unique: true,
@@ -30,6 +30,14 @@ const userSchema = new Schema(
       required: true,
     },
     membership_status: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    profile_picture: {
       type: String,
       required: true,
     },

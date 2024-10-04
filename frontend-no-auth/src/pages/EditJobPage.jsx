@@ -19,8 +19,6 @@ const EditJobPage = () => {
   const [postedDate, setPostedDate] = useState(new Date());
   const [status, setStatus] = useState("open");
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const token = user ? user.token : null;
 
   const navigate = useNavigate();
 
@@ -29,11 +27,10 @@ const EditJobPage = () => {
       console.log("Updating job:", job);
       const res = await fetch(`/api/jobs/${job.id}`, {
         method: "PUT",
+        body: JSON.stringify(job),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(job),
       });
       if (!res.ok) throw new Error("Failed to update job");
       return res.ok;

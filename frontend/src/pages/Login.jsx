@@ -6,7 +6,7 @@ import { AuthContext } from "../Context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const email = useField("email");
+  const username = useField("text");
   const password = useField("password");
 
   const { login, error } = useLogin("/api/users/login");
@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    await login({ email: email.value, password: password.value });
+    await login({ username: username.value, password: password.value });
     if (!error) {
       console.log("login success");
       navigate("/");

@@ -13,8 +13,6 @@ const AddJobPage = () => {
   const [postedDate, setPostedDate] = useState(new Date().toISOString().split('T')[0]);
   const [status, setStatus] = useState("open");
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const token = user ? user.token : null;
 
   const navigate = useNavigate();
 
@@ -23,11 +21,10 @@ const AddJobPage = () => {
       console.log("Adding job:", newJob);
       const res = await fetch("/api/jobs", {
         method: "POST",
+        body: JSON.stringify(newJob),
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(newJob),
       });
       if (!res.ok) {
         throw new Error("Failed to add job");

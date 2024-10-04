@@ -9,11 +9,6 @@ const jobSchema = new mongoose.Schema({
     contactEmail: { type: String, required: true },
     contactPhone: { type: String, required: true }
   },
-  user_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User',
-  },
   location: { type: String, required: true }, // e.g., City, State, or Remote
   salary: { type: Number, required: true }, // e.g., Annual or hourly salary
   postedDate: { type: Date, default: Date.now }, // Date the job was posted
