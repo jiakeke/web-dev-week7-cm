@@ -27,8 +27,8 @@ const Login = () => {
       <div className="create">
         <h2>Login</h2>
         <form onSubmit={handleFormSubmit}>
-          <label>Email address:</label>
-          <input {...email} />
+          <label>UserName:</label>
+          <input {...username} />
           <label>Password:</label>
           <input {...password} />
           <button>Sign up</button>

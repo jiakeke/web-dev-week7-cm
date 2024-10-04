@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
 import { useContext } from "react";
 
-const Signup = ({ setIsAuthenticated }) => {
+const Signup = () => {
   const navigate = useNavigate();
   const name = useField("text");
   const username = useField("text");
@@ -18,7 +18,7 @@ const Signup = ({ setIsAuthenticated }) => {
 
   const { signup, error } = useSignup("/api/users/signup");
 
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -35,37 +35,39 @@ const Signup = ({ setIsAuthenticated }) => {
     });
     if (!error) {
       console.log("success");
-      setIsAuthenticated(true);
+      setIsLoggedIn(true);
       navigate("/");
     }
   };
 
-  return (
-    <div className="create">
-      <h2>Sign Up</h2>
-      <form onSubmit={handleFormSubmit}>
-        <label>Name:</label>
-        <input {...name} />
-        <label>UserName:</label>
-        <input {...username} />
-        <label>Password:</label>
-        <input {...password} />
-        <label>Phone Number:</label>
-        <input {...phoneNumber} />
-        <label>Gender:</label>
-        <input {...gender} />
-        <label>Date of Birth:</label>
-        <input {...dateOfBirth} />
-        <label>Membership Status:</label>
-        <input {...membershipStatus} />
-        <label>Address:</label>
-        <input {...address} />
-        <label>Profile Picture:</label>
-        <input {...profile_picture} />
-        <button>Sign up</button>
-      </form>
-    </div>
-  );
+  if (!isLoggedIn) {
+    return (
+      <div className="create">
+        <h2>Sign Up</h2>
+        <form onSubmit={handleFormSubmit}>
+          <label>Name:</label>
+          <input {...name} />
+          <label>UserName:</label>
+          <input {...username} />
+          <label>Password:</label>
+          <input {...password} />
+          <label>Phone Number:</label>
+          <input {...phoneNumber} />
+          <label>Gender:</label>
+          <input {...gender} />
+          <label>Date of Birth:</label>
+          <input {...dateOfBirth} />
+          <label>Membership Status:</label>
+          <input {...membershipStatus} />
+          <label>Address:</label>
+          <input {...address} />
+          <label>Profile Picture:</label>
+          <input {...profile_picture} />
+          <button>Sign up</button>
+        </form>
+      </div>
+    );
+  }
 };
 
 export default Signup;

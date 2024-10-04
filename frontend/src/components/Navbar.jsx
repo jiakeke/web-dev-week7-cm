@@ -16,7 +16,7 @@ const Navbar = () => {
         {isLoggedIn && (
           <div>
             <Link to="/jobs/add-job">Add Job</Link>
-            <span>{JSON.parse(localStorage.getItem("user")).email}</span>
+            <span>{JSON.parse(localStorage.getItem("user")).username}</span>
             <button onClick={logout}>Log out</button>
           </div>
         )}
