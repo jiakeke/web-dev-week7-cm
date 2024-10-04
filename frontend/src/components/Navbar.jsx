@@ -5,19 +5,24 @@ import { useContext } from "react";
 const Navbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
 
+  console.log(isLoggedIn);
+
+  if (isLoggedIn) {
+  }
   return (
     <nav className="navbar">
       <Link to="/">
         <h1>React Jobs</h1>
       </Link>
       <div className="links">
-        {isLoggedIn ? (
+        {isLoggedIn && (
           <div>
             <Link to="/jobs/add-job">Add Job</Link>
             <span>{JSON.parse(localStorage.getItem("user")).email}</span>
             <button onClick={logout}>Log out</button>
           </div>
-        ) : (
+        )}
+        {!isLoggedIn && (
           <div>
             <Link to="/login">Login</Link>
             <Link to="/signup">Signup</Link>

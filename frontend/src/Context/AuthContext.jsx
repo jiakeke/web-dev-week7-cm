@@ -17,29 +17,6 @@ export function AuthProvider(props) {
     setIsLoading(false);
   }, []);
 
-  const login = async (object) => {
-    setIsLoading(true);
-    setError(null);
-    const response = await fetch("/api/users/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(object),
-    });
-    const user = await response.json();
-
-    if (!response.ok) {
-      setError(user.error);
-      setIsLoading(false);
-      return error;
-    } else {
-      setIsLoggedIn(true);
-    }
-
-    // localStorage.setItem("token", user.token);
-    localStorage.setItem("user", JSON.stringify(user));
-    setIsLoading(false);
-  };
-
   const logout = () => {
     setIsLoggedIn(false);
     setToken(null);
@@ -50,7 +27,6 @@ export function AuthProvider(props) {
     isLoggedIn,
     isLoading,
     token,
-    login,
     logout,
     setIsLoading,
     setError,

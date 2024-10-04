@@ -1,14 +1,13 @@
 import useField from "../hooks/useField";
+import useLogin from "../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../Context/AuthContext";
-import { useContext } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const email = useField("email");
   const password = useField("password");
 
-  const { login, error } = useContext(AuthContext);
+  const { login, error } = useLogin("/api/users/login");
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();

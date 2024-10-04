@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthContext, AuthProvider } from "./Context/AuthContext";
 
 // pages & components
@@ -23,14 +23,19 @@ const App = () => {
     <div className="App">
       <AuthProvider>
         <BrowserRouter>
-          <Navbar
-            isAuthenticated={isAuthenticated}
-            setIsAuthenticated={setIsAuthenticated}
-          />
+          <Navbar />
           <div className="content">
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/jobs/:id" element={<JobPage />} />
+              <Route
+                path="/jobs/:id"
+                element={
+                  <JobPage
+                    isAuthenticated={isAuthenticated}
+                    setIsAuthenticated={setIsAuthenticated}
+                  />
+                }
+              />
               <Route
                 path="/jobs/add-job"
                 element={
