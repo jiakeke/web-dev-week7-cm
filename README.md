@@ -4,12 +4,21 @@
 - **Link to the backend repositories:**
   - [Backend repo for API V1](https://github.com/jiakeke/web-dev-cm3-g7-backend-no-auth)
   - [Backend repo for API V2](https://github.com/jiakeke/web-dev-cm3-g7-backend-auth)
+
 - **Link to the frontend repository:**
   - [Frontend repo for API V1](https://github.com/jiakeke/web-dev-cm3-g7-frontend-no-auth)
   - [Frontend repo for API V2](https://github.com/jiakeke/web-dev-cm3-g7-frontend-auth)
+
 - **URLs for the deployed APIs:**
-  - [URL for API V1]
-  - [URL for API V2]
+  - [URL for API V1](https://web-dev-cm3-g7-backend-no-auth.onrender.com)
+  - [URL for API V2](https://web-dev-cm3-g7-backend-auth.onrender.com)
+  - [URL for Frontend V1](https://web-dev-cm3-g7-frontend-no-auth.onrender.com)
+  - [URL for Frontend V2](https://web-dev-cm3-g7-frontend-auth.onrender.com)
+
+- **Links to the testing:**
+  - [Backend tests for API V1](https://github.com/jiakeke/web-dev-cm3-g7-backend-no-auth/tree/main/tests)
+  - [Backend tests for API V2](https://github.com/jiakeke/web-dev-cm3-g7-backend-auth/tree/main/tests)
+
 
 - **Bonus for useContext:**
     We successfully used useContext instead of props in the front-end program.
